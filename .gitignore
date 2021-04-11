@@ -5,3 +5,5 @@ __pycache__/
 venv/
 ner/full_model_v2.pt
 ner/test.txt
+full_model_v2.pt
+
