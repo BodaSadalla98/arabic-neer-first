@@ -1,22 +1,30 @@
 import pandas as pd
 import numpy as np
-
+from helpers.download_model  import download_file_from_google_drive
 from transformers import AutoConfig, AutoModelForTokenClassification, AutoTokenizer, BertForTokenClassification
 import torch
-
+import os 
 MODEL_NAME = 'aubmindlab/bert-base-arabertv02'
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+
+
+file_id = '1Ebvc67HJQ5I9M6LfdzAiOVx5iiyVO9LN'
+destination =  DIR_PATH +'/full_model_v2'
+
+
+download_file_from_google_drive(file_id, destination)
 
 TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 
 
-label_list = list(pd.read_csv('/home/boda/Desktop/Projects/ANER/ner/label_list.txt', header=None, index_col=0).T)
+label_list = list(pd.read_csv(f'{DIR_PATH}/label_list.txt', header=None, index_col=0).T)
 label_map = { v:index for index, v in enumerate(label_list) }
 inv_label_map = {i: label for i, label in enumerate(label_list)}
 
 
-model = torch.load('/home/boda/Desktop/Projects/ANER/ner/full_model_v2' ,map_location='cpu')
+model = torch.load(f'{DIR_PATH}/full_model_v2' ,map_location='cpu')
 model.eval()
 
 def predict_sent(sentences):

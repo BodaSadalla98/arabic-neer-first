@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect
-#from helpers import helper
+from helpers import helper
 from ner.aner import predict_sent
 
 app = Flask(__name__)
@@ -24,9 +24,9 @@ def about():
 def test():
     if request.method == "POST":
         inp = request.form['input']
-        #sentence = helper.prepare_sentence(inp)
+        sentence = helper.prepare_sentence(inp)
         #task = test_camel(sentence)
-        task = predict_sent(inp)
+        task = predict_sent(sentence)
         # task = helper.final_result(task)
         return render_template('test.html', task=task, inp=inp)
     else:
