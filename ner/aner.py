@@ -4,17 +4,20 @@ from helpers.download_model  import download_file_from_google_drive
 from transformers import AutoConfig, AutoModelForTokenClassification, AutoTokenizer, BertForTokenClassification
 import torch
 import os 
+import gdown
 MODEL_NAME = 'aubmindlab/bert-base-arabertv02'
 
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
-
+file_url ='https://drive.google.com/uc?id=1Ebvc67HJQ5I9M6LfdzAiOVx5iiyVO9LN'
 file_id = '1Ebvc67HJQ5I9M6LfdzAiOVx5iiyVO9LN'
 destination =  DIR_PATH +'/full_model_v2.pt'
 
 
 if not os.path.exists(destination):
-    download_file_from_google_drive(file_id, destination)
+    # download_file_from_google_drive(file_id, destination)
+    gdown.download(file_url, destination, quiet=False)
+
 
 TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
 
