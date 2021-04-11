@@ -10,10 +10,11 @@ DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 file_id = '1Ebvc67HJQ5I9M6LfdzAiOVx5iiyVO9LN'
-destination =  DIR_PATH +'/full_model_v2'
+destination =  DIR_PATH +'/full_model_v2.pt'
 
 
-download_file_from_google_drive(file_id, destination)
+if not os.path.exists(destination):
+    download_file_from_google_drive(file_id, destination)
 
 TOKENIZER = AutoTokenizer.from_pretrained(MODEL_NAME)
 
@@ -24,7 +25,7 @@ label_map = { v:index for index, v in enumerate(label_list) }
 inv_label_map = {i: label for i, label in enumerate(label_list)}
 
 
-model = torch.load(f'{DIR_PATH}/full_model_v2' ,map_location='cpu')
+model = torch.load(f'{DIR_PATH}/full_model_v2.pt' ,map_location='cpu')
 model.eval()
 
 def predict_sent(sentences):
