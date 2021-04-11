@@ -1,0 +1,7 @@
+/model
+.idea/
+__pycache__/
+.vscode/
+venv/
+ner/full_model_v2.pt
+ner/test.txt
